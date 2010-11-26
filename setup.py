@@ -33,7 +33,7 @@ setup(
         license = license,
         keywords = '',
         
-        install_requires = ['marrow.util'],
+        install_requires = ['marrow.util', 'marrow.script', 'alacarte'],
         
         test_suite = 'nose.collector',
         tests_require = [
