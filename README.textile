@@ -16,6 +16,8 @@ The @marrow.blueprint@ package provides a streamlined way to generate on-disk fi
 
 In a larger scope @marrow.blueprint@ aims to replace other high-level directory tree templating libraries such as "Paste Script":pastescript while also implementing "Python 3":python compatibility.
 
+Blueprints can accept command-line arguments (@--name=value@ pairs), define default values if the arguments are missing, and can interactively question the user for required values.
+
 
 [alacarte]https://github.com/GothAlice/alacarte
 [pastescript]http://pythonpaste.org/script/
@@ -56,20 +58,21 @@ If you would like to make changes and contribute them back to the project, fork 
 
 
 
-h2(#basic). %3.% Basic Usage
+h2(#basic). %3.% Using Blueprints
 
 
 
-h2(#advanced). %4.% Advanced Usage
+
+h2(#advanced). %4.% Creating Blueprints
 
 
 
-h2(#license). %6.% Marrow Template License
+h2(#license). %5.% Marrow Template License
 
 Marrow Blueprint has been released under the MIT Open Source license.
 
 
-h3. %6.1.% The MIT License
+h3. %5.1.% The MIT License
 
 Copyright (C) 2010 Alice Bevan-McGregor and contributors.
 
