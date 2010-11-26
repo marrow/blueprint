@@ -1,6 +1,12 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+from __future__ import print_function
+
+import pkg_resources
+
+from marrow.script.util import wrap, partitionhelp
+
 
 __all__ = ['Blueprint']
 
@@ -21,7 +27,18 @@ class Blueprint(object):
     
     def list(self):
         """List available templates."""
-        pass
+        
+        print("Available blueprints:\n")
+        
+        blueprints = dict([(i.name, i.load()) for i in pkg_resources.iter_entry_points('marrow.blueprint')])
+        
+        mlen = max([len(i) for i in blueprints])
+        
+        for name in sorted(blueprints):
+            doc = partitionhelp(getattr(blueprints[name], '__doc__', ''))[0][0]
+            print(" %-*s  %s" % (mlen, name, wrap(doc).replace("\n", "\n" + " " * (mlen + 3))))
+        
+        print("\nIf the last segment of the name is unambiguous you can omit the namespace.")
     
     def create(self, template, target, **kw):
         """Create a directory tree based on a template.
@@ -31,6 +48,10 @@ class Blueprint(object):
         pass
 
 
-if __name__ == '__main__':
+def main():
     from marrow.script import execute
     execute(Blueprint)
+
+
+if __name__ == '__main__':
+    main()
