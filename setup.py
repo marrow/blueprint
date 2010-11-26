@@ -64,9 +64,12 @@ setup(
         namespace_packages = ['marrow'],
         
         entry_points = {
+                'console_scripts': [
+                        'blueprint = marrow.blueprint.command:main'
+                    ],
                 'marrow.blueprint': [
                         'python.package = marrow.blueprint.package:PackageBlueprint',
-                        'marrow.project = marrow.blueprint.marrow:MarrowBlueprint'
+                        'marrow.project = marrow.blueprint.project:MarrowBlueprint'
                     ]
             }
     )

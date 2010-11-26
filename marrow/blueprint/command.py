@@ -2,6 +2,9 @@
 # encoding: utf-8
 
 
+__all__ = ['Blueprint']
+
+
 
 class Blueprint(object):
     """Blueprint: create directory trees based on manifest templates.
