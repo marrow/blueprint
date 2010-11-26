@@ -16,7 +16,7 @@ The @marrow.blueprint@ package provides a streamlined way to generate on-disk fi
 
 In a larger scope @marrow.blueprint@ aims to replace other high-level directory tree templating libraries such as "Paste Script":pastescript while also implementing "Python 3":python compatibility.
 
-Blueprints can accept command-line arguments (@--name=value@ pairs), define default values if the arguments are missing, and can interactively question the user for required values.
+Blueprints can accept command-line arguments (@--name=value@ pairs), define default values if the arguments are missing, and can interactively question the user for required values.  Blueprints can be stored within zipped Python EGGs for efficient storage.
 
 
 [alacarte]https://github.com/GothAlice/alacarte
