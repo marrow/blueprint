@@ -12,7 +12,7 @@ bq(byline). "https://github.com/pulp/marrow.blueprint":github-project
 
 h2(#what-is). %1.% What is Marrow Blueprint?
 
-The @marrow.blueprint@ package provides a streamlined way to generate on-disk files and folder trees using programmable manifests and template files embedded in another "Python":python package.  An example use cases would be initial web application creation, Python package creation, or configuration files.  Files can be template-driven using any templating language with "@alacarte@":alacarte integration.
+The @marrow.blueprint@ package provides a streamlined way to generate on-disk files and folder trees using programmable manifests and template files embedded in another "Python":python package.  Example use cases would include initial web application creation, Python package creation, or configuration files.  Files can be template-driven using any templating language with "@alacarte@":alacarte integration.
 
 In a larger scope @marrow.blueprint@ aims to replace other high-level directory tree templating libraries such as "Paste Script":pastescript while also implementing "Python 3":python compatibility.
 
