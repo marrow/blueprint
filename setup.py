@@ -36,11 +36,7 @@ setup(
         install_requires = ['marrow.util', 'marrow.script', 'alacarte'],
         
         test_suite = 'nose.collector',
-        tests_require = [
-                'nose',
-                'coverage',
-                'mako'
-            ],
+        tests_require = ['nose', 'coverage', 'alacarte', 'mako'],
         
         classifiers = [
                 "Development Status :: 1 - Planning",
@@ -69,7 +65,7 @@ setup(
                     ],
                 'marrow.blueprint': [
                         'python.package = marrow.blueprint.package:PackageBlueprint',
-                        'marrow.project = marrow.blueprint.project:MarrowBlueprint'
+                        'marrow.project = marrow.blueprint.project:ProjectBlueprint'
                     ]
             }
     )

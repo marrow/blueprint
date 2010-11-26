@@ -30,10 +30,13 @@ class Blueprint(object):
         
         print("Available blueprints:\n")
         
+        # Load Python plugins.
         blueprints = dict([(i.name, i.load()) for i in pkg_resources.iter_entry_points('marrow.blueprint')])
         
+        # Get the length of the longest plugin name.
         mlen = max([len(i) for i in blueprints])
         
+        # Output one line per blueprint: name, then the first line of documentation (if available).
         for name in sorted(blueprints):
             doc = partitionhelp(getattr(blueprints[name], '__doc__', ''))[0][0]
             print(" %-*s  %s" % (mlen, name, wrap(doc).replace("\n", "\n" + " " * (mlen + 3))))
