@@ -67,7 +67,7 @@ h2(#advanced). %4.% Creating Blueprints
 
 
 
-h2(#license). %5.% Marrow Template License
+h2(#license). %5.% Marrow Blueprint License
 
 Marrow Blueprint has been released under the MIT Open Source license.
 
