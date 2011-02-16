@@ -60,10 +60,32 @@ If you would like to make changes and contribute them back to the project, fork 
 
 h2(#basic). %3.% Using Blueprints
 
+The @blueprint@ command expects two positional arguments: @blueprint@ and @target@.
+
+* @blueprint@ - The name of the blueprint to use.
+* @target@ - The directory to create and extract the blueprint into.
+
+Instead of being asked interactively for answers to questions, you can pass the answers to @blueprint@ ahead of time.  For example:
+
+<pre><code>blueprint create package MyPackage --name=MyPackage --package=mypkg --version=1.0</code></pre>
+
+Any unanswered questions will still be prompted for. To prevent prompting for optional questions you can use the @-r/--required@ command line switch:
+
+<pre><code>blueprint create -r package MyPackage --name=MyPackage --package=mypkg</code></pre>
+
+
+h3(#environment). %3.1.% Environment Variables
+
+You can define environment variables that declare defaults for the questions asked by @blueprint@.  For example, you can set your default license and author information:
+
+<pre><code>export BLUEPRINT_LICENSE="mit"
+export BLUEPRINT_AUTHOR="Lord Wolfgang von Fahrvergnugen <wolfgang@wedge-df.mil>"</code></pre>
+
+You will *not* be prompted for questions with answers in the environment.  You can still override them on the command-line, however.
 
 
 
-h2(#advanced). %4.% Creating Blueprints
+h2(#creating). %4.% Creating Blueprints
 
 
 

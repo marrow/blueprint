@@ -16,7 +16,8 @@ from setuptools import setup, find_packages
 if sys.version_info <= (2, 6):
     raise SystemExit("Python 2.6 or later is required.")
 
-execfile(os.path.join("marrow", "blueprint", "release.py"))
+with open(os.path.join("marrow", "blueprint", "release.py")) as fh:
+    exec(fh)
 
 
 
