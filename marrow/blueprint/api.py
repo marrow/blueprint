@@ -41,7 +41,9 @@ class Blueprint(object):
     def __call__(self, required_only=False):
         try:
             self.questions(self.cmdopts, required_only)
+            self.prepare()
             self.process()
+            self.post()
         
         except KeyboardInterrupt:
             pass
@@ -151,6 +153,12 @@ class Blueprint(object):
         recurse(self.manifest, self.target, self.base)
         
         print("\nConstruction finished.")
+    
+    def prepare(self):
+        pass
+    
+    def post(self):
+        pass
 
 
 class Folder(object):
