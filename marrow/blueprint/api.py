@@ -67,10 +67,10 @@ class Blueprint(object):
                 prompt = "\033[2K\033[1m%s%s%s: \033[m" % (option.title, (" [%s]" % ", ".join([(i if i else "<none>") for i in option.values])) if option.values else "", (" [default: %s]" % (option.default, )) if option.default else "")
                 
                 if option.hidden:
-                    value = getpass(prompt)
+                    value = option.cast(getpass(prompt))
                 
                 else:
-                    value = raw_input(prompt).strip()
+                    value = option.cast(raw_input(prompt).strip())
                 
                 if option.required and not value:
                     print("\033[2KValue is required.\r\033[1A", end="")
