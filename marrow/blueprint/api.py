@@ -4,6 +4,7 @@ from __future__ import unicode_literals, print_function
 
 from marrow.util.bunch import Bunch
 from pprint import pprint
+from getpass import getpass
 
 try:
     import readline
@@ -60,14 +61,24 @@ class Blueprint(object):
                     break
                 
                 elif (required_only and not option.required) or not option.condition(settings):
-                    value = u''
+                    value = option.default
                     break
                 
-                value = raw_input("\033[2K\033[1m%s%s: \033[m" % (option.title, (" [%s]" % ", ".join([(i if i else "<none>") for i in option.values])) if option.values else "")).strip()
+                prompt = "\033[2K\033[1m%s%s%s: \033[m" % (option.title, (" [%s]" % ", ".join([(i if i else "<none>") for i in option.values])) if option.values else "", (" [default: %s]" % (option.default, )) if option.default else "")
+                
+                if option.hidden:
+                    value = getpass(prompt)
+                
+                else:
+                    value = raw_input(prompt).strip()
                 
                 if option.required and not value:
                     print("\033[2KValue is required.\r\033[1A", end="")
                     continue
+                
+                if not value:
+                    value = option.default
+                    break
                 
                 if value and not option.validator(value):
                     print("\033[2KInput fails validation, please try again.\r\033[1A", end="")
@@ -94,6 +105,12 @@ class Blueprint(object):
             while parts:
                 part = parts.pop(0)
                 
+                if hasattr(part.source, '__call__'):
+                    part.source = part.source(options)
+                
+                if hasattr(part.target, '__call__'):
+                    part.target = part.target(options)
+                
                 if isinstance(part, (Folder, File)) and not part.condition(options):
                     # print("%sSkipping source %s %s..." % ("    " * indent, part.__class__.__name__.lower(), part.source))
                     continue
@@ -111,7 +128,14 @@ class Blueprint(object):
                     print("%sConstructing %s%s..." % ("    " * indent, part.target, (" from %s" % (part.source, )) if part.source != part.target else ""))
                     # print("%s -> %s" % (source + '/' + part.source, path.join(target, part.target)))
                     try:
-                        _, content = self.engines(source + '/' + part.source, dict(settings=options))
+                        data = dict(settings=options)
+                        
+                        if hasattr(part.data, '__call__'):
+                            data.update(part.data(options))
+                        else:
+                            data.update(part.data)
+                        
+                        _, content = self.engines(source + '/' + part.source, data)
                     
                     except:
                         print("\nError constructing %s%s.\n" % (part.target, (" from %s" % (part.source, )) if part.source != part.target else ""))
@@ -142,7 +166,7 @@ class Folder(object):
 
 class File(object):
     """"""
-    def __init__(self, target, source=None, condition=None):
+    def __init__(self, target, source=None, condition=None, data=dict()):
         self.target = target
         self.source = path.join(*source) if isinstance(source, (tuple, list)) else source if source else target
         self.condition = condition if condition is not None else lambda s: True
@@ -152,7 +176,7 @@ class File(object):
 
 class Setting(object):
     """Define a configuration option which delares data to pass to the templates."""
-    def __init__(self, target, title, help=None, required=False, validator=None, condition=None, values=None):
+    def __init__(self, target, title, help=None, required=False, validator=None, condition=None, values=None, default="", cast=None, hidden=False):
         self.target = target
         self.title = title
         self.help = help
@@ -160,5 +184,8 @@ class Setting(object):
         self.validator = validator if validator is not None else lambda s: (True if values is None else s in values)
         self.condition = condition if condition is not None else lambda s: True
         self.values = values
+        self.default = default
+        self.cast = cast if cast is not None else lambda v: v
+        self.hidden = hidden
         
         super(Setting, self).__init__()
