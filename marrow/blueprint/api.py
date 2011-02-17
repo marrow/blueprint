@@ -170,6 +170,7 @@ class File(object):
         self.target = target
         self.source = path.join(*source) if isinstance(source, (tuple, list)) else source if source else target
         self.condition = condition if condition is not None else lambda s: True
+        self.data = data
         
         super(File, self).__init__()
 
