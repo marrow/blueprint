@@ -26,7 +26,6 @@ class Blueprint(object):
     """Blueprint uses a declarative style for defining structure."""
     
     base = None
-    inherits = None
     engine = 'mako'
     
     settings = []
@@ -127,10 +126,10 @@ class Blueprint(object):
                     recurse(part.children, newtarget, (source + '/' + part.source) if part.source else source, indent+1)
                 
                 elif isinstance(part, File):
-                    print("%sConstructing %s%s..." % ("    " * indent, part.target, (" from %s" % (part.source, )) if part.source != part.target else ""))
+                    print("%sConstructing %s%s..." % ("    " * indent, part.target, (" from %s" % (path.basename(part.source), )) if part.source != part.target else ""))
                     # print("%s -> %s" % (source + '/' + part.source, path.join(target, part.target)))
                     try:
-                        data = dict(settings=options)
+                        data = Bunch(settings=options)
                         
                         if hasattr(part.data, '__call__'):
                             data.update(part.data(options))
@@ -140,7 +139,7 @@ class Blueprint(object):
                         _, content = self.engines(source + '/' + part.source, data)
                     
                     except:
-                        print("\nError constructing %s%s.\n" % (part.target, (" from %s" % (part.source, )) if part.source != part.target else ""))
+                        print("\nError constructing %s%s.\n" % (part.target, (" from %s" % (path.basename(part.source), )) if part.source != part.target else ""))
                         raise
                     
                     with open(path.join(target, part.target), 'w') as fh:
