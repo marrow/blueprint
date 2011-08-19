@@ -1,43 +1,47 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-import sys, os
-
-try:
-    from distribute_setup import use_setuptools
-    use_setuptools()
-
-except ImportError:
-    pass
+import os
+import sys
 
 from setuptools import setup, find_packages
 
 
-if sys.version_info <= (2, 6):
+if sys.version_info < (2, 6):
     raise SystemExit("Python 2.6 or later is required.")
 
-with open(os.path.join("marrow", "blueprint", "release.py")) as fh:
-    exec(fh)
+exec(open(os.path.join("marrow", "blueprint", "release.py")))
 
 
 
 setup(
-        name = name,
+        name = "marrow.blueprint",
         version = version,
         
-        description = summary,
-        long_description = description,
-        author = author,
-        author_email = email,
-        url = url,
-        download_url = download_url,
-        license = license,
-        keywords = '',
+        description = "Flexible manifest-driven file and folder creation.",
+        long_description = '''\
+For full documentation, see the README.textile file present in the package,
+or view it online on the GitHub project page:
+
+https://github.com/marrow/marrow.blueprint''',
         
-        install_requires = ['marrow.util', 'marrow.script', 'alacarte'],
+        author = "Alice Bevan-McGregor",
+        author_email = "alice+marrow@gothcandy.com",
+        url = "https://github.com/marrow/marrow.blueprint",
+        license = "MIT",
+        
+        install_requires = [
+            'marrow.util < 2.0',
+            'marrow.script < 3.0',
+            'marrow.templating < 2.0'
+        ],
         
         test_suite = 'nose.collector',
-        tests_require = ['nose', 'coverage', 'alacarte', 'mako'],
+        tests_require = [
+            'nose',
+            'coverage',
+            'mako'
+        ],
         
         classifiers = [
                 "Development Status :: 1 - Planning",
@@ -50,12 +54,9 @@ setup(
                 "Topic :: Software Development :: Libraries :: Python Modules"
             ],
         
-        packages = find_packages(exclude=['examples', 'tests', 'tests.*', 'docs', 'third-party']),
+        packages = find_packages(exclude=['examples', 'tests']),
         include_package_data = True,
-        package_data = {
-                '': ['README.textile', 'LICENSE', 'distribute_setup.py'],
-                'docs': ['Makefile', 'source/*']
-            },
+        package_data = {'': ['README.textile', 'LICENSE']},
         zip_safe = True,
         
         namespace_packages = ['marrow'],

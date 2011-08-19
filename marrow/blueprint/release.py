@@ -1,17 +1,13 @@
 # encoding: utf-8
 
-"""Release information about Marrow Blueprint."""
+"""Release information for Marrow Blueprint."""
+
+from collections import namedtuple
 
 
-name = "marrow.blueprint"
-version = "0.1"
-release = "0.1"
+__all__ = ['version_info', 'version']
 
-summary = "Flexible manifest-driven file and folder creation."
-description = """"""
-author = "Alice Bevan-McGregor"
-email = "alice@gothcandy.com"
-url = "https://github.com/pulp/marrow.blueprint"
-download_url = "http://pypi.python.org/pypi/marrow.blueprint"
-copyright = "2010, Alice Bevan-McGregor"
-license = "MIT"
+
+version_info = namedtuple('version_info', ('major', 'minor', 'micro', 'releaselevel', 'serial'))(0, 1, 0, 'beta', 1)
+
+version = ".".join([str(i) for i in version_info[:3]]) + ((version_info.releaselevel[0] + str(version_info.serial)) if version_info.releaselevel != 'final' else '')
