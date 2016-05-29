@@ -63,7 +63,7 @@ class Blueprint(object):
         
         # Load Python plugins.
         blueprints = dict([(i.name, i.load()) for i in pkg_resources.iter_entry_points('marrow.blueprint')])
-        for name in blueprints.keys():
+        for name in list(blueprints.keys()):
             short = name.partition('.')[2]
             
             if short in blueprints:
