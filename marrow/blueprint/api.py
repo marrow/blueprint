@@ -144,7 +144,7 @@ class Blueprint(object):
 							data.update(part.data)
 						
 						content = pkg_resources.resource_string(*(source + '/' + part.source).split('/', 1))
-						content = cinje.fragment(content.decode('utf8'), **data)
+						content = cinje.fragment(content.decode('utf8') + "\n\n: yield None\n: flush\n", **data)
 					
 					except:
 						print("\nError constructing %s%s.\n" % (part.target, (" from %s" % (path.basename(part.source), )) if part.source != part.target else ""))

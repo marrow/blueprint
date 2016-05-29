@@ -13,17 +13,9 @@ __all__ = ['PackageBlueprint']
 
 
 def package(settings):
-	if not settings.py2ns:
-			settings.py2ns = 'y' if sys.version_info < (3,) else 'n'
-	
 	def recurse(name):
 		head, _, tail = name.partition('.')
-		
-		if settings.py2ns == 'y':
-			init = [File('__init__.py', ('namespace.py' if tail else 'init.py'))]
-		else:
-			init = [] if tail else [File('__init__.py', 'init.py')]
-		
+		init = [File('__init__.py', ('namespace.py' if tail else 'init.py'))]
 		return [Folder(head, children=(init + (recurse(tail) if tail else [])))]
 	
 	return recurse(settings.package)
@@ -62,8 +54,6 @@ class PackageBlueprint(Blueprint):
 			Setting('version', "Package Version"),
 			Setting('descrip', "Package Description"),
 			Setting('license', "LICENSE Format", values=[''] + extensions(base, 'LICENSE')),
-			Setting('py2ns', "Use Python 2 namespaces?", "This will include an __init__.py file to register the namespaces." \
-					"\nThe default is 'y' on Python 2, 'n' on Python 3.", values=['', 'y', 'n']),
 			Setting('author', "Author", "Name, email\033K", validator=lambda s: ',' in s and '@' in s),
 			Setting('readme', "README Format", values=[''] + extensions(base, 'README')),
 			Setting('tests', "Use py.test?", "Include py.test test runner configuration? (Default: y)",

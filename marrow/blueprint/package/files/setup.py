@@ -1,5 +1,5 @@
-##!/usr/bin/env python
-## encoding: utf-8
+: yield '#!/usr/bin/env python\n'
+: yield '# encoding: utf-8\n\n'
 
 import os
 
@@ -15,10 +15,10 @@ setup(
 		
 		description = "${settings.descrip}",
 		long_description = "",
-		: if settings.url:
+		: if settings.url
 		url = "${settings.url}",
 		: end
-		: if settings.author:
+		: if settings.author
 		
 		author = "${settings.author.partition(',')[0].strip()}",
 		author_email = "${settings.author.partition(',')[2].strip()}",
@@ -37,21 +37,21 @@ setup(
 				'LICENSE.txt'
 				: end
 			]},
-		: else
+		
 		namespace_packages = [
 				: for i in range(len(settings.package.split('.')[:-1]))
-				'${'.'.join(settings.package.split('.')[:i + 1])}",
+				'${'.'.join(settings.package.split('.')[:i + 1])}',
 				: end
 			],
 		
 		setup_requires = [
-				: if settings.tests
+				: if settings.tests in ('', 'y')
 				'pytest-runner',
 				: end
 			],
 		
 		tests_require = [
-				: if settings.tests
+				: if settings.tests in ('', 'y')
 				'pytest-runner',
 				'coverage',
 				'pytest',
@@ -63,7 +63,7 @@ setup(
 		
 		install_requires = [
 			: if settings.requires
-				: for pkg in [i.strip() for i in settings.requires.split(',')]:
+				: for pkg in (i.strip() for i in settings.requires.split(','))
 				'${pkg}',
 				: end
 			: end
@@ -71,7 +71,7 @@ setup(
 		
 		extras_require = dict(
 				development = [
-						: if settings.tests
+						: if settings.tests in ('', 'y')
 						'pytest-runner',
 						'coverage',
 						'pytest',
@@ -87,3 +87,5 @@ setup(
 		entry_points = {
 				}
 	)
+
+: flush
