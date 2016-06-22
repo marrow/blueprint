@@ -64,7 +64,7 @@ setup(
 		install_requires = [
 			: if settings.requires
 				: for pkg in (i.strip() for i in settings.requires.split(','))
-				'${pkg}',
+				'#{pkg}',
 				: end
 			: end
 			],
