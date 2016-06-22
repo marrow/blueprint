@@ -33,7 +33,7 @@ https://github.com/marrow/marrow.blueprint''',
         install_requires = [
             'marrow.util < 2.0',
             'marrow.script < 3.0',
-            'marrow.templating < 2.0'
+            'cinje < 2.0'
         ],
         
         test_suite = 'nose.collector',
