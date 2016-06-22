@@ -3,6 +3,7 @@
 # Packaging
 .eggs
 .packaging
+*.egg-info
 
 # Virtual Environment Pseudo-Chroot
 bin
