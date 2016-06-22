@@ -24,7 +24,7 @@ setup(
 		author_email = "${settings.author.partition(',')[2].strip()}",
 		: end
 		
-		license = "${license}",
+		license = "${settings.license}",
 		keywords = [],
 		
 		packages = find_packages(exclude=['test', 'example', 'conf', 'benchmark', 'tool', 'doc']),
